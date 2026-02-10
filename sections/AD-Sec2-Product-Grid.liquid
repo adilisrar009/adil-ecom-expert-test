@@ -605,7 +605,7 @@
       if (colorOption) {
         elements.colors.innerHTML = colorOption.values.map(value => `
           <div class="vorso-color-box" onclick="selectVorsoColor('${value}', this)">
-            <div class="vorso-color-indicator" style="background: ${value.toLowerCase()};"></div>
+            <div class="vorso-color-indicator" style="background: ${value.toLowerCase()}; display: block;"></div>
             <span class="vorso-color-text">${value}</span>
           </div>`).join('');
       }
@@ -836,7 +836,7 @@
         "type": "text",
         "id": "heading",
         "label": "Section Heading",
-        "default": "Featured Products"
+        "default": "Tisso vison in the wild"
       }
     ],
     "blocks": [
