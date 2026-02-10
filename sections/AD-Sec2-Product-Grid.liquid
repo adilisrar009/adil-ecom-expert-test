@@ -512,22 +512,22 @@
 </section>
 
 <script>
+  let selectedVariantId = null;          // Store the currently selected variant ID
+  let productVariants = [];             // Store all variants of the current product
+  let selectedColor = null;             // Store selected color option
+  let selectedSize = null;              // Store selected size option
+  let isAddingToCart = false;           // Flag to prevent multiple cart additions
+  const currency = '{{ shop.currency }}' || 'CAD'; // Store the currency for price formatting
   
-  let selectedVariantId = null;
-  let productVariants = [];
-  let selectedColor = null;
-  let selectedSize = null;
-  let isAddingToCart = false;
-  const currency = '{{ shop.currency }}' || 'CAD';
-  
-  
+  // Convert price from cents to readable format (e.g., 2999 -> "29.99 CAD")
   function formatPrice(cents) {
   const amount = (cents / 100).toFixed(2);
   return `${amount} ${currency}`;
   }
   
-  
+  // Open quick view modal when plus button is clicked
   async function openQuickView(handle) {
+  // Get references to all modal elements
   const modal = document.getElementById('quickview-modal');
   const title = document.getElementById('modal-name');
   const desc = document.getElementById('modal-desc');
@@ -538,42 +538,50 @@
   const sizeText = document.getElementById('current-size');
   const cartBtn = document.querySelector('.cart-btn');
   
-  
+  // Show modal and disable page scrolling
   modal.classList.add('show');
   document.body.style.overflow = 'hidden';
   
+  // Reset previous selections
   selectedVariantId = null;
   selectedColor = null;
   selectedSize = null;
   
+  // Show loading state
   title.innerText = 'Loading...';
   desc.innerHTML = 'Fetching details...';
   colors.innerHTML = '';
   sizes.innerHTML = '';
   sizeText.innerText = 'Choose your size';
-   
+  
+  // Reset cart button state
   if(cartBtn) {
     cartBtn.disabled = false;
     cartBtn.classList.remove('loading');
   }
   
   try {
+    // Fetch product data from Shopify
     const response = await fetch(`/products/${handle}.js`);
     const product = await response.json();
     
+    // Store all variants for later use
     productVariants = product.variants;
     
+    // Update modal with product information
     image.src = product.featured_image;
     title.innerText = product.title;
     desc.innerHTML = product.description;
     price.innerText = formatPrice(product.price);
     
+    // Find and create color options
     const colorOption = product.options.find(option => 
       option.name.toLowerCase().includes('color') || 
       option.name.toLowerCase().includes('colour')
     );
     
     if (colorOption) {
+      // Create a color box for each color option
       colors.innerHTML = colorOption.values.map(value => `
         <div class="color-box" onclick="chooseColor('${value}', this)">
           <div class="color-swatch" style="background: ${value.toLowerCase()}; display: block;"></div>
@@ -581,66 +589,94 @@
         </div>`).join('');
     }
     
+    // Find and create size options
     const sizeOption = product.options.find(option => 
       option.name.toLowerCase() === 'size'
     );
     
     if (sizeOption) {
+      // Create a size option for each size
       sizes.innerHTML = sizeOption.values.map(value => `
         <div class="size-option" onclick="chooseSize('${value}', event)">${value}</div>`).join('');
     }
     
   } catch (error) {
-    console.error("Error:", error);
+    // Handle errors if product can't be loaded
+    console.error("Error loading product:", error);
     title.innerText = "Error loading product";
   }
   }
   
+  // Handle color selection from color options
   function chooseColor(value, element) {
+  // Store selected color
   selectedColor = value;
   
+  // Remove active class from all color boxes
   document.querySelectorAll('.color-box').forEach(el => {
     el.classList.remove('active');
   });
+  
+  // Add active class to selected color box
   element.classList.add('active');
   
+  // Find matching variant with selected options
   findVariant();
   }
   
+  // Handle size selection from dropdown
   function chooseSize(value, event) {
+  // Prevent event from closing dropdown immediately
   event.stopPropagation();
+  
+  // Store selected size
   selectedSize = value;
   
+  // Update displayed size text
   document.getElementById('current-size').innerText = value;
+  
+  // Close dropdown after selection
   document.querySelector('.size-dropdown').classList.remove('open');
   
+  // Find matching variant with selected options
   findVariant();
   }
   
+  // Toggle size dropdown open/close
   function toggleSizeList(event) {
+  // Prevent click from propagating to parent elements
   event.stopPropagation();
   document.querySelector('.size-dropdown').classList.toggle('open');
   }
   
+  // Find variant that matches selected color and size
   function findVariant() {
   const cartBtn = document.querySelector('.cart-btn');
   const priceEl = document.getElementById('modal-cost');
   
+  // Look for variant that matches both selected color and size
   const matchedVariant = productVariants.find(variant => {
+    // Convert variant options to lowercase for comparison
     const variantOptions = variant.options.map(opt => opt?.toString().toLowerCase());
     const colorLower = selectedColor?.toLowerCase();
     const sizeLower = selectedSize?.toLowerCase();
     
+    // Check if variant matches selected color (if color is selected)
     const colorMatch = !selectedColor || variantOptions.includes(colorLower);
+    
+    // Check if variant matches selected size (if size is selected)
     const sizeMatch = !selectedSize || variantOptions.includes(sizeLower);
     
+    // Return true only if both conditions match
     return colorMatch && sizeMatch;
   });
   
   if (matchedVariant) {
+    // If matching variant found
     selectedVariantId = matchedVariant.id;
     priceEl.innerText = formatPrice(matchedVariant.price);
     
+    // Enable/disable cart button based on availability
     if (matchedVariant.available) {
       cartBtn.disabled = false;
       cartBtn.classList.remove('loading');
@@ -648,43 +684,53 @@
       cartBtn.disabled = true;
     }
   } else {
+    // If no matching variant found
     selectedVariantId = null;
     cartBtn.disabled = true;
   }
   }
   
+  // Add selected item to cart
   async function addToCart() {
   const cartBtn = document.querySelector('.cart-btn');
   
+  // Prevent multiple clicks while adding to cart
   if (isAddingToCart) return;
   
+  // Check if both color and size are selected
   if (!selectedColor || !selectedSize) {
     alert("Please select both color and size!");
     return;
   }
   
+  // Check if a valid variant is available
   if (!selectedVariantId) {
     alert("Selected combination is not available!");
     return;
   }
   
+  // Set loading state
   isAddingToCart = true;
   cartBtn.classList.add('loading');
   cartBtn.disabled = true;
   cartBtn.innerHTML = '<p class="body-font">ADDING...</p>';
   
   try {
+    // Prepare items to add to cart
     const cartItems = [{ 
       id: selectedVariantId, 
       quantity: 1 
     }];
     
+    // Special offer: Add upsell product for black medium size
     if (selectedColor.toLowerCase() === 'black' && 
         ['m', 'medium'].includes(selectedSize.toLowerCase())) {
       try {
+        // Try to get upsell product
         const upsellResponse = await fetch('/products/dark-winter-jacket.js');
         const upsellProduct = await upsellResponse.json();
         
+        // Add upsell product if available
         if (upsellProduct.variants && upsellProduct.variants.length > 0) {
           cartItems.push({ 
             id: upsellProduct.variants[0].id, 
@@ -692,10 +738,12 @@
           });
         }
       } catch (error) {
-        console.warn("Upsell not found:", error);
+        // If upsell product not found, continue without it
+        console.warn("Upsell product not found:", error);
       }
     }
     
+    // Send request to add items to cart
     const cartResponse = await fetch('/cart/add.js', {
       method: 'POST',
       headers: { 
@@ -706,16 +754,19 @@
       })
     });
     
+    // If successful, redirect to cart page
     if (cartResponse.ok) {
       window.location.href = '/cart';
     } else {
-      throw new Error('Cart add failed');
+      throw new Error('Failed to add items to cart');
     }
     
   } catch (error) {
+    // Handle errors during cart addition
     console.error("Cart Error:", error);
-    alert("Failed to add item to cart.");
+    alert("Failed to add item to cart. Please try again.");
     
+    // Reset button state
     cartBtn.classList.remove('loading');
     cartBtn.disabled = false;
     cartBtn.innerHTML = `
@@ -726,11 +777,14 @@
     `;
     
   } finally {
+    // Reset flag regardless of success or failure
     isAddingToCart = false;
   }
   }
   
+  // Close modal when clicking outside or on close button
   function closeModal(event) {
+  // Only close if clicking directly on overlay (not modal content)
   if (event && event.target.id !== 'quickview-modal') {
     return;
   }
@@ -739,12 +793,14 @@
   document.body.style.overflow = 'auto';
   }
   
+  // Close modal with Escape key
   document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape') {
     closeModal();
   }
   });
   
+  // Close dropdown when clicking outside
   document.addEventListener('click', (event) => {
   const dropdown = document.querySelector('.size-dropdown');
   if (dropdown && !event.target.closest('.size-dropdown')) {
