@@ -316,6 +316,14 @@
     text-transform: uppercase;
   }
 
+  .ad-hero-wrapper {
+    max-width: 1440px;
+    margin: auto;
+    height: 100%;
+    width: 100%;
+    position: relative;
+  }
+
   .bottom-bar-desktop {
     font-family: 'Jost'
     , sans-serif;
@@ -636,7 +644,7 @@
   <div class="hero-banner-wrapper">
     <!-- Desktop/Tablet Layout -->
     <div class="hero-desktop" style="background-image: url('{{ section.settings.desktop_bg_image | img_url: 'master' }}')">
-      <div class="ad-hero-wrapper" style="max-width: 1440px; margin:auto;">
+      <div class="ad-hero-wrapper">
         <div class="hero-content">
           <h1 class="hero-heading">{{ section.settings.heading }}</h1>
           <p class="hero-description desktop-description">{{ section.settings.desktop_description }}</p>
