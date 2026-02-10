@@ -512,6 +512,7 @@
 </section>
 
 <script>
+  
   let selectedVariantId = null;
   let productVariants = [];
   let selectedColor = null;
@@ -519,10 +520,12 @@
   let isAddingToCart = false;
   const currency = '{{ shop.currency }}' || 'CAD';
   
+  
   function formatPrice(cents) {
   const amount = (cents / 100).toFixed(2);
   return `${amount} ${currency}`;
   }
+  
   
   async function openQuickView(handle) {
   const modal = document.getElementById('quickview-modal');
@@ -534,6 +537,7 @@
   const image = document.getElementById('modal-img');
   const sizeText = document.getElementById('current-size');
   const cartBtn = document.querySelector('.cart-btn');
+  
   
   modal.classList.add('show');
   document.body.style.overflow = 'hidden';
@@ -547,7 +551,7 @@
   colors.innerHTML = '';
   sizes.innerHTML = '';
   sizeText.innerText = 'Choose your size';
-  
+   
   if(cartBtn) {
     cartBtn.disabled = false;
     cartBtn.classList.remove('loading');

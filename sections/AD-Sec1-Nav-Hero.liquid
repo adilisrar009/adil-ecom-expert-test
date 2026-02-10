@@ -1,17 +1,14 @@
 <style>
-  /* Base Font Styles */
   .font-jost {
     font-family: 'Jost'
     , sans-serif;
   }
 
-  /* Navbar Section */
   .navbar-section {
     background: {{ section.settings.navbar_bg_color | default: '#F5F5F5' }};
     position: relative;
   }
 
-  /* Desktop Navbar Styles */
   .navbar-desktop {
     display: none;
     max-width: 1440px;
@@ -41,7 +38,6 @@
     font-size: 16px;
   }
 
-  /* NAVBAR BUTTON */
   .nav-gift-button {
     position: relative;
     overflow: hidden;
@@ -101,7 +97,6 @@
     text-transform: uppercase;
   }
 
-  /* Mobile Navbar Styles */
   .navbar-mobile {
     display: block;
   }
@@ -159,7 +154,6 @@
     width: 2.5rem;
   }
 
-  /* Mobile Menu - Card Style */
   .mobile-menu {
     position: absolute;
     top: 100%;
@@ -180,12 +174,10 @@
     transform: translateY(0);
   }
 
-  /* Navbar shadow when menu is open */
   .navbar-shadow {
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15);
   }
 
-  /* Card content */
   .menu-card {
     background: #F2F2F2;
     margin: 0 16px 16px;
@@ -210,7 +202,6 @@
     min-height: 44px;
   }
 
-  /* Hero Banner Section */
   .hero-banner-section {
     width: 100%;
     overflow: hidden;
@@ -220,7 +211,6 @@
     width: 100%;
   }
 
-  /* Bottom Bar Styles */
   .bottom-bar {
     background-color: #F5F5F5;
     padding: 10px 50px;
@@ -235,12 +225,10 @@
     text-align: center;
   }
 
-  /* Hide mobile text by default on desktop */
   .bottom-bar-mobile {
     display: none;
   }
 
-  /* HERO BANNER BUTTON */
   .hero-shop-button {
     position: relative;
     overflow: hidden;
@@ -326,7 +314,6 @@
     text-align: center;
   }
 
-  /* Desktop/Tablet Layout */
   .hero-desktop {
     display: block;
     height: 780px;
@@ -365,14 +352,11 @@
     max-width: 440px;
   }
 
-  /* Hide mobile layout on desktop/tablet */
   .hero-mobile {
     display: none;
   }
 
-  /* Mobile Layout */
   @media screen and (max-width: 768px) {
-    /* Navbar Mobile Styles */
     .navbar-desktop {
       display: none;
     }
@@ -381,12 +365,10 @@
       display: block;
     }
 
-    /* Hero Banner Mobile Styles */
     .hero-desktop {
       display: none;
     }
 
-    /* Show mobile layout */
     .hero-mobile {
       display: block;
     }
@@ -428,17 +410,14 @@
       text-align: center;
     }
 
-    /* Hide desktop description on mobile */
     .desktop-description {
       display: none;
     }
 
-    /* Bottom Bar Mobile Styles */
     .bottom-bar {
       padding: 10px 20px;
     }
 
-    /* Switch text display on mobile */
     .bottom-bar-desktop {
       display: none;
     }
@@ -448,7 +427,6 @@
     }
   }
 
-  /* Tablet Styles */
   @media screen and (min-width: 769px) and(max-width: 1024px) {
     .navbar-desktop {
       display: block;
@@ -472,18 +450,15 @@
       font-size: 16px;
     }
 
-    /* Hide mobile description on tablet */
     .mobile-description {
       display: none;
     }
 
-    /* Adjust bottom bar padding for tablet */
     .bottom-bar {
       padding: 10px 30px;
     }
   }
 
-  /* Desktop Styles */
   @media screen and (min-width: 1025px) {
     .navbar-desktop {
       display: block;
@@ -498,16 +473,14 @@
       bottom: 10%;
     }
 
-    /* Hide mobile description on desktop */
     .mobile-description {
       display: none;
     }
   }
 </style>
 
-<!-- Navbar Section -->
 <div class="navbar-section" id="navbar">
-  <!-- Desktop Version -->
+
   <div class="navbar-desktop">
     <div class="navbar-desktop-container">
       <div class="navbar-desktop-logo">
@@ -540,7 +513,7 @@
     </div>
   </div>
 
-  <!-- Mobile Version -->
+
   <div class="navbar-mobile">
     <div class="navbar-mobile-header">
       <button id="menu-btn" class="hamburger-btn">
@@ -601,7 +574,7 @@
       <div class="navbar-mobile-spacer"></div>
     </div>
 
-    <!-- Card Content -->
+
     <div id="mobile-menu" class="mobile-menu">
       <div class="menu-card">
         <div class="menu-card-content">
@@ -624,10 +597,10 @@
   </div>
 </div>
 
-<!-- Hero Banner Section -->
+
 <section class="hero-banner-section">
   <div class="hero-banner-wrapper">
-    <!-- Desktop/Tablet Layout -->
+
     <div class="hero-desktop" style="background-image: url('{{ section.settings.desktop_bg_image | img_url: 'master' }}')">
       <div class="ad-hero-wrapper">
         <div class="hero-content">
@@ -651,7 +624,7 @@
 
     </div>
 
-    <!-- Mobile Layout -->
+
     <div class="hero-mobile">
       <h1 class="hero-heading mobile-heading">{{ section.settings.heading }}</h1>
       <p class="hero-description mobile-description">{{ section.settings.mobile_description }}</p>
@@ -694,7 +667,7 @@
     document.querySelector('.close-icon').classList.toggle('show');
   });
   
-  // Close menu when clicking outside
+  
   document.addEventListener('click', (e) => {
     if (isOpen && !navbar.contains(e.target)) {
       closeMenu();
