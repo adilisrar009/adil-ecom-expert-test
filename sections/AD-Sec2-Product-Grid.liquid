@@ -519,7 +519,7 @@
   let isAddingToCart = false;           
   const currency = '{{ shop.currency }}' || 'CAD'; 
   
-  // Convert price from cents to readable format
+  
   function formatPrice(cents) {
   const amount = (cents / 100).toFixed(2);
   return `${amount} ${currency}`;
