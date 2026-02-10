@@ -30,7 +30,7 @@
       }
     },
     "ad_final_sec_nav_hero_pLxBVV": {
-      "type": "AD-Sec1-Nav-Hero",
+      "type": "AD-Final-Sec-Nav-Hero",
       "name": "Navbar and Hero Banner",
       "settings": {
         "navbar_bg_color": "#f5f5f5",
@@ -51,14 +51,16 @@
       }
     },
     "ad_sec3_product_grid_GcRXmC": {
-      "type": "AD-Sec2-Product-Grid",
+      "type": "AD-Sec3-Product-Grid",
       "blocks": {
         "product_block_G4BcTz": {
           "type": "product_block",
           "settings": {
             "selected_product": "black-leather-bag",
             "pos_x": 270,
-            "pos_y": 245
+            "pos_y": 245,
+            "pos_x_mobile": 80,
+            "pos_y_mobile": 10
           }
         },
         "product_block_ycFNmW": {
@@ -66,7 +68,9 @@
           "settings": {
             "selected_product": "blue-silk-tuxedo",
             "pos_x": 375,
-            "pos_y": 220
+            "pos_y": 220,
+            "pos_x_mobile": 80,
+            "pos_y_mobile": 10
           }
         },
         "product_block_tdbt66": {
@@ -74,7 +78,9 @@
           "settings": {
             "selected_product": "chequered-red-shirt",
             "pos_x": 270,
-            "pos_y": 80
+            "pos_y": 80,
+            "pos_x_mobile": 80,
+            "pos_y_mobile": 10
           }
         },
         "product_block_3L3LjU": {
@@ -82,7 +88,9 @@
           "settings": {
             "selected_product": "classic-leather-jacket",
             "pos_x": 310,
-            "pos_y": 80
+            "pos_y": 80,
+            "pos_x_mobile": 80,
+            "pos_y_mobile": 10
           }
         },
         "product_block_3kD6TP": {
@@ -90,7 +98,9 @@
           "settings": {
             "selected_product": "classic-varsity-top",
             "pos_x": 220,
-            "pos_y": 100
+            "pos_y": 100,
+            "pos_x_mobile": 80,
+            "pos_y_mobile": 10
           }
         },
         "product_block_DpxHhP": {
@@ -98,7 +108,9 @@
           "settings": {
             "selected_product": "dark-denim-top",
             "pos_x": 330,
-            "pos_y": 180
+            "pos_y": 180,
+            "pos_x_mobile": 80,
+            "pos_y_mobile": 10
           }
         }
       },
@@ -112,7 +124,7 @@
       ],
       "name": "Product Mosaic Gallery",
       "settings": {
-        "heading": "Featured Collection"
+        "heading": "Tisso vison in the wild"
       }
     }
   },
