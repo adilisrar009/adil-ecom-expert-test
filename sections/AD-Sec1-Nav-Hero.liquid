@@ -1,0 +1,814 @@
+<style>
+  /* Base Font Styles */
+  .font-jost {
+    font-family: 'Jost'
+    , sans-serif;
+  }
+
+  /* Navbar Section */
+  .navbar-section {
+    background: {{ section.settings.navbar_bg_color | default: '#F5F5F5' }};
+    position: relative;
+  }
+
+  /* Desktop Navbar Styles */
+  .navbar-desktop {
+    display: none;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 10px 50px;
+  }
+
+  .navbar-desktop-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .navbar-desktop-logo {
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+
+  .navbar-desktop-logo img {
+    height: 2rem;
+    width: auto;
+  }
+
+  .navbar-desktop-content {
+    font-family: 'Jost'
+    , sans-serif;
+    font-size: 16px;
+  }
+
+  /* NAVBAR BUTTON - ORIGINAL STYLING (NO CHANGES) */
+  .nav-gift-button {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    min-width: 207px;
+    min-height: 44px;
+    background: #FFF544;
+    /* Yellow background by default - ORIGINAL */
+    text-decoration: none;
+    color: black;
+    /* Black text by default - ORIGINAL */
+  }
+
+  .nav-gift-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: black;
+    /* Black on hover - ORIGINAL */
+    transition: left 0.3s ease;
+    z-index: 1;
+  }
+
+  .nav-gift-button:hover::before {
+    left: 0;
+  }
+
+  .nav-gift-button-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 44px;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Text color change on hover - ORIGINAL */
+  .nav-gift-button:hover .nav-gift-button-content {
+    color: white;
+    /* White text on hover - ORIGINAL */
+  }
+
+  /* SVG color change on hover - ORIGINAL */
+  .nav-gift-button svg path {
+    fill: black;
+    /* Black by default - ORIGINAL */
+    transition: fill 0.3s ease;
+  }
+
+  .nav-gift-button:hover svg path {
+    fill: white;
+    /* White on hover - ORIGINAL */
+  }
+
+  .nav-gift-button-text {
+    font-family: 'Jost'
+    , sans-serif;
+    font-size: 16px;
+    text-transform: uppercase;
+  }
+
+  /* Mobile Navbar Styles */
+  .navbar-mobile {
+    display: block;
+  }
+
+  .navbar-mobile-header {
+    height: 65px;
+    padding: 23px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 10;
+    background: inherit;
+  }
+
+  .hamburger-btn {
+    background: transparent;
+    padding: 8px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+  }
+
+  .hamburger-btn.active {
+    background: #F2F2F2;
+  }
+
+  .hamburger-icon,
+  .close-icon {
+    display: none;
+  }
+
+  .hamburger-icon.show,
+  .close-icon.show {
+    display: block;
+  }
+
+  .navbar-mobile-logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .navbar-mobile-logo img {
+    height: 1.5rem;
+    width: auto;
+  }
+
+  .navbar-mobile-logo-text {
+    font-size: 1.125rem;
+    font-weight: bold;
+  }
+
+  .navbar-mobile-spacer {
+    width: 2.5rem;
+  }
+
+  /* Mobile Menu - Card Style */
+  .mobile-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    z-index: 50;
+    background: transparent;
+    transform: translateY(-10%);
+  }
+
+  .mobile-menu.open {
+    max-height: 400px;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Navbar shadow when menu is open */
+  .navbar-shadow {
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15);
+  }
+
+  /* Card content */
+  .menu-card {
+    background: #F2F2F2;
+    margin: 0 16px 16px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .menu-card-content {
+    padding: 25px;
+    text-align: center;
+  }
+
+  .menu-card-text {
+    font-family: 'Jost'
+    , sans-serif;
+    font-size: 16px;
+    margin-bottom: 24px;
+  }
+
+  .mobile-gift-button {
+    min-width: 244px;
+    min-height: 44px;
+  }
+
+  /* Hero Banner Section */
+  .hero-banner-section {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .hero-banner-wrapper {
+    width: 100%;
+  }
+
+  /* Bottom Bar Styles */
+  .bottom-bar {
+    background-color: #F5F5F5;
+    padding: 10px 50px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .bottom-bar p {
+    margin: 0;
+    font-family: 'Jost'
+    , sans-serif;
+    text-align: center;
+  }
+
+  /* Hide mobile text by default on desktop */
+  .bottom-bar-mobile {
+    display: none;
+  }
+
+  /* HERO BANNER BUTTON - UPDATED STYLING (ONLY THIS BUTTON CHANGED) */
+  .hero-shop-button {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    min-width: 207px;
+    min-height: 44px;
+    background: #000000;
+    /* Black background by default - UPDATED */
+    text-decoration: none;
+    color: white;
+    /* White text by default - UPDATED */
+  }
+
+  .hero-shop-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: #FFF544;
+    /* Yellow on hover - UPDATED */
+    transition: left 0.3s ease;
+    z-index: 1;
+  }
+
+  .hero-shop-button:hover::before {
+    left: 0;
+  }
+
+  .hero-shop-button-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 50px;
+    width: 220px;
+    height: 100%;
+  }
+
+  /* Text color change on hover - UPDATED */
+  .hero-shop-button:hover .hero-shop-button-content {
+    color: black;
+    /* Black text on hover - UPDATED */
+  }
+
+  /* SVG color change on hover - UPDATED */
+  .hero-shop-button svg path {
+    fill: white;
+    /* White by default - UPDATED */
+    transition: fill 0.3s ease;
+  }
+
+  .hero-shop-button:hover svg path {
+    fill: black;
+    /* Black on hover - UPDATED */
+  }
+
+  .hero-shop-button-text {
+    font-family: 'Jost'
+    , sans-serif;
+    font-size: 16px;
+    text-transform: uppercase;
+  }
+
+  .bottom-bar-desktop {
+    font-family: 'Jost'
+    , sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 13.42px;
+    color: #000;
+  }
+  .bottom-bar-mobile {
+    font-family: 'Jost'
+    , sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: #000;
+    text-align: center;
+  }
+
+  /* Desktop/Tablet Layout */
+  .hero-desktop {
+    display: block;
+    height: 780px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+  }
+
+  .hero-content {
+    position: absolute;
+    left: 5%;
+    bottom: 10%;
+    max-width: 500px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+  }
+
+  .hero-heading {
+    font-size: 48px;
+    font-weight: 700;
+    font-family: 'Jost'
+    , sans-serif;
+    margin-bottom: 20px;
+    color: #000000;
+  }
+
+  .hero-description {
+    font-size: 17px;
+    line-height: 1.6;
+    font-family: 'Jost'
+    , sans-serif;
+    margin-bottom: 30px;
+    color: #333333;
+    max-width: 440px;
+  }
+
+  /* Hide mobile layout on desktop/tablet */
+  .hero-mobile {
+    display: none;
+  }
+
+  /* Mobile Layout */
+  @media screen and (max-width: 768px) {
+    /* Navbar Mobile Styles */
+    .navbar-desktop {
+      display: none;
+    }
+
+    .navbar-mobile {
+      display: block;
+    }
+
+    /* Hero Banner Mobile Styles */
+    .hero-desktop {
+      display: none;
+    }
+
+    /* Show mobile layout */
+    .hero-mobile {
+      display: block;
+    }
+
+    .mobile-heading {
+      font-size: 36px;
+      margin-bottom: 20px;
+      text-align: center;
+      color: #000000;
+      padding: 20px 20px 0;
+    }
+
+    .mobile-description {
+      font-size: 16px;
+      line-height: 1.5;
+      margin: 0 auto;
+      text-align: center;
+      color: #333333;
+      padding: 0 20px;
+    }
+
+    .mobile-image-container {
+      height: 264px;
+      width: 100%;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      border-radius: 8px;
+      position: relative;
+      margin-top: 20px;
+    }
+
+    .mobile-hero-button {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      min-width: 193px;
+      text-align: center;
+    }
+
+    /* Hide desktop description on mobile */
+    .desktop-description {
+      display: none;
+    }
+
+    /* Bottom Bar Mobile Styles */
+    .bottom-bar {
+      padding: 10px 20px;
+    }
+
+    /* Switch text display on mobile */
+    .bottom-bar-desktop {
+      display: none;
+    }
+
+    .bottom-bar-mobile {
+      display: block;
+    }
+  }
+
+  /* Tablet Styles */
+  @media screen and (min-width: 769px) and(max-width: 1024px) {
+    .navbar-desktop {
+      display: block;
+    }
+
+    .navbar-mobile {
+      display: none;
+    }
+
+    .hero-content {
+      left: 3%;
+      bottom: 5%;
+      max-width: 400px;
+    }
+
+    .hero-heading {
+      font-size: 36px;
+    }
+
+    .hero-description {
+      font-size: 16px;
+    }
+
+    /* Hide mobile description on tablet */
+    .mobile-description {
+      display: none;
+    }
+
+    /* Adjust bottom bar padding for tablet */
+    .bottom-bar {
+      padding: 10px 30px;
+    }
+  }
+
+  /* Desktop Styles */
+  @media screen and (min-width: 1025px) {
+    .navbar-desktop {
+      display: block;
+    }
+
+    .navbar-mobile {
+      display: none;
+    }
+
+    .hero-content {
+      left: 5%;
+      bottom: 10%;
+    }
+
+    /* Hide mobile description on desktop */
+    .mobile-description {
+      display: none;
+    }
+  }
+</style>
+
+<!-- Navbar Section -->
+<div class="navbar-section" id="navbar">
+  <!-- Desktop Version -->
+  <div class="navbar-desktop">
+    <div class="navbar-desktop-container">
+      <div class="navbar-desktop-logo">
+        {% if section.settings.logo %}
+          <a href="{{ section.settings.logo_link | default: routes.root_url }}">
+            <img
+              src="{{ section.settings.logo | img_url: '200x' }}"
+              alt="{{ shop.name }}"
+              loading="lazy">
+          </a>
+        {% else %}
+          <a href="{{ routes.root_url }}" class="navbar-desktop-logo-text">{{ shop.name }}</a>
+        {% endif %}
+      </div>
+
+      <p class="navbar-desktop-content">{{ section.settings.navbar_content }}</p>
+
+      <a href="{{ section.settings.navbar_button_link | default: '#' }}" class="nav-gift-button">
+        <div class="nav-gift-button-content">
+          <span class="nav-gift-button-text">{{ section.settings.navbar_btn_text }}</span>
+          <svg
+            width="26"
+            height="12"
+            viewBox="0 0 26 12"
+            fill="none">
+            <path d="M0.75 4.77298L7.37629e-08 4.77298L-7.37629e-08 6.27298L0.75 6.27298L0.75 4.77298ZM25.2803 6.05331C25.5732 5.76042 25.5732 5.28554 25.2803 4.99265L20.5074 0.21968C20.2145 -0.073213 19.7396 -0.0732131 19.4467 0.21968C19.1538 0.512574 19.1538 0.987447 19.4467 1.28034L23.6893 5.52298L19.4467 9.76562C19.1538 10.0585 19.1538 10.5334 19.4467 10.8263C19.7396 11.1192 20.2145 11.1192 20.5074 10.8263L25.2803 6.05331ZM0.75 6.27298L24.75 6.27298L24.75 4.77298L0.75 4.77298L0.75 6.27298Z" />
+          </svg>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- Mobile Version -->
+  <div class="navbar-mobile">
+    <div class="navbar-mobile-header">
+      <button id="menu-btn" class="hamburger-btn">
+        <svg
+          class="hamburger-icon show"
+          width="20"
+          height="12"
+          viewBox="0 0 20 12"
+          fill="none">
+          <path
+            d="M1 6H19"
+            stroke="black"
+            stroke-width="2"
+            stroke-linecap="round" />
+          <path
+            d="M1 1H19"
+            stroke="black"
+            stroke-width="2"
+            stroke-linecap="round" />
+          <path
+            d="M1 11H19"
+            stroke="black"
+            stroke-width="2"
+            stroke-linecap="round" />
+        </svg>
+        <svg
+          class="close-icon"
+          width="15"
+          height="15"
+          viewBox="0 0 15 15"
+          fill="none">
+          <path
+            d="M1 13.9994L13.7279 1.27147"
+            stroke="black"
+            stroke-width="2"
+            stroke-linecap="round" />
+          <path
+            d="M1 1L13.7279 13.7279"
+            stroke="black"
+            stroke-width="2"
+            stroke-linecap="round" />
+        </svg>
+      </button>
+
+      <div class="navbar-mobile-logo">
+        {% if section.settings.logo %}
+          <a href="{{ section.settings.logo_link | default: routes.root_url }}">
+            <img
+              src="{{ section.settings.logo | img_url: '150x' }}"
+              alt="{{ shop.name }}"
+              loading="lazy">
+          </a>
+        {% else %}
+          <a href="{{ routes.root_url }}" class="navbar-mobile-logo-text">{{ shop.name }}</a>
+        {% endif %}
+      </div>
+
+      <div class="navbar-mobile-spacer"></div>
+    </div>
+
+    <!-- Card Content -->
+    <div id="mobile-menu" class="mobile-menu">
+      <div class="menu-card">
+        <div class="menu-card-content">
+          <p class="menu-card-text">{{ section.settings.navbar_content }}</p>
+          <a href="{{ section.settings.navbar_button_link | default: '#' }}" class="nav-gift-button mobile-gift-button">
+            <div class="nav-gift-button-content">
+              <span class="nav-gift-button-text">{{ section.settings.navbar_btn_text }}</span>
+              <svg
+                width="26"
+                height="12"
+                viewBox="0 0 26 12"
+                fill="none">
+                <path d="M0.75 4.77298L7.37629e-08 4.77298L-7.37629e-08 6.27298L0.75 6.27298L0.75 4.77298ZM25.2803 6.05331C25.5732 5.76042 25.5732 5.28554 25.2803 4.99265L20.5074 0.21968C20.2145 -0.073213 19.7396 -0.0732131 19.4467 0.21968C19.1538 0.512574 19.1538 0.987447 19.4467 1.28034L23.6893 5.52298L19.4467 9.76562C19.1538 10.0585 19.1538 10.5334 19.4467 10.8263C19.7396 11.1192 20.2145 11.1192 20.5074 10.8263L25.2803 6.05331ZM0.75 6.27298L24.75 6.27298L24.75 4.77298L0.75 4.77298L0.75 6.27298Z" />
+              </svg>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Hero Banner Section -->
+<section class="hero-banner-section">
+  <div class="hero-banner-wrapper">
+    <!-- Desktop/Tablet Layout -->
+    <div class="hero-desktop" style="background-image: url('{{ section.settings.desktop_bg_image | img_url: 'master' }}')">
+      <div class="ad-hero-wrapper" style="max-width: 1440px; margin:auto;">
+        <div class="hero-content">
+          <h1 class="hero-heading">{{ section.settings.heading }}</h1>
+          <p class="hero-description desktop-description">{{ section.settings.desktop_description }}</p>
+
+          <a href="{{ section.settings.hero_button_link | default: '#' }}" class="hero-shop-button">
+            <div class="hero-shop-button-content">
+              <span class="hero-shop-button-text">{{ section.settings.hero_button_text }}</span>
+              <svg
+                width="26"
+                height="12"
+                viewBox="0 0 26 12"
+                fill="none">
+                <path d="M0.75 4.77298L7.37629e-08 4.77298L-7.37629e-08 6.27298L0.75 6.27298L0.75 4.77298ZM25.2803 6.05331C25.5732 5.76042 25.5732 5.28554 25.2803 4.99265L20.5074 0.21968C20.2145 -0.073213 19.7396 -0.0732131 19.4467 0.21968C19.1538 0.512574 19.1538 0.987447 19.4467 1.28034L23.6893 5.52298L19.4467 9.76562C19.1538 10.0585 19.1538 10.5334 19.4467 10.8263C19.7396 11.1192 20.2145 11.1192 20.5074 10.8263L25.2803 6.05331ZM0.75 6.27298L24.75 6.27298L24.75 4.77298L0.75 4.77298L0.75 6.27298Z" />
+              </svg>
+            </div>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Mobile Layout -->
+    <div class="hero-mobile">
+      <h1 class="hero-heading mobile-heading">{{ section.settings.heading }}</h1>
+      <p class="hero-description mobile-description">{{ section.settings.mobile_description }}</p>
+      <div class="mobile-image-container" style="background-image: url('{{ section.settings.mobile_bg_image | img_url: 'master' }}')">
+        <a href="{{ section.settings.hero_button_link | default: '#' }}" class="hero-shop-button mobile-hero-button">
+          <div class="hero-shop-button-content">
+            <span class="hero-shop-button-text">{{ section.settings.hero_button_text }}</span>
+            <svg
+              width="26"
+              height="12"
+              viewBox="0 0 26 12"
+              fill="none">
+              <path d="M0.75 4.77298L7.37629e-08 4.77298L-7.37629e-08 6.27298L0.75 6.27298L0.75 4.77298ZM25.2803 6.05331C25.5732 5.76042 25.5732 5.28554 25.2803 4.99265L20.5074 0.21968C20.2145 -0.073213 19.7396 -0.0732131 19.4467 0.21968C19.1538 0.512574 19.1538 0.987447 19.4467 1.28034L23.6893 5.52298L19.4467 9.76562C19.1538 10.0585 19.1538 10.5334 19.4467 10.8263C19.7396 11.1192 20.2145 11.1192 20.5074 10.8263L25.2803 6.05331ZM0.75 6.27298L24.75 6.27298L24.75 4.77298L0.75 4.77298L0.75 6.27298Z" />
+            </svg>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-bar">
+    <p class="bottom-bar-desktop">{{ section.settings.bottom_bar_desktop_text }}</p>
+    <p class="bottom-bar-mobile">{{ section.settings.bottom_bar_mobile_text }}</p>
+  </div>
+</section>
+
+<script>
+  const menuBtn = document.getElementById('menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');  
+  const navbar = document.getElementById('navbar');
+  let isOpen = false;
+  
+  menuBtn.addEventListener('click', () => {
+    isOpen = !isOpen;
+    
+    mobileMenu.classList.toggle('open');
+    menuBtn.classList.toggle('active');
+    navbar.classList.toggle('navbar-shadow');
+    
+    document.querySelector('.hamburger-icon').classList.toggle('show');
+    document.querySelector('.close-icon').classList.toggle('show');
+  });
+  
+  // Close menu when clicking outside
+  document.addEventListener('click', (e) => {
+    if (isOpen && !navbar.contains(e.target)) {
+      closeMenu();
+    }
+  });
+  
+  function closeMenu() {
+    isOpen = false;
+    mobileMenu.classList.remove('open');
+    menuBtn.classList.remove('active');
+    navbar.classList.remove('navbar-shadow');
+    document.querySelector('.hamburger-icon').classList.add('show');
+    document.querySelector('.close-icon').classList.remove('show');
+  }
+</script>
+
+{% schema %}
+  {
+    "name": "Navbar and Hero Banner",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Navbar Settings"
+      },
+      {
+        "type": "color",
+        "id": "navbar_bg_color",
+        "label": "Navbar Background Color",
+        "default": "#F5F5F5"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo"
+      },
+      {
+        "type": "url",
+        "id": "logo_link",
+        "label": "Logo Link"
+      }, {
+        "type": "text",
+        "id": "navbar_content",
+        "label": "Navbar Content",
+        "default": "Find the ideal gift for your loved ones."
+      }, {
+        "type": "text",
+        "id": "navbar_btn_text",
+        "label": "Navbar Button Text",
+        "default": "choose gift"
+      }, {
+        "type": "url",
+        "id": "navbar_button_link",
+        "label": "Navbar Button Link",
+        "default": "/"
+      }, {
+        "type": "header",
+        "content": "Hero Banner Settings"
+      }, {
+        "type": "image_picker",
+        "id": "desktop_bg_image",
+        "label": "Desktop/Tablet Background Image",
+        "info": "Recommended size: 1920x780px"
+      }, {
+        "type": "image_picker",
+        "id": "mobile_bg_image",
+        "label": "Mobile Background Image",
+        "info": "Recommended size: 750x264px"
+      }, {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading",
+        "default": "Hero Banner Title"
+      }, {
+        "type": "textarea",
+        "id": "desktop_description",
+        "label": "Desktop/Tablet Description",
+        "default": "This is the description text that appears on desktop and tablet devices. You can customize this text in the theme editor."
+      }, {
+        "type": "textarea",
+        "id": "mobile_description",
+        "label": "Mobile Description",
+        "default": "This description appears only on mobile devices. You can have different text for mobile view."
+      }, {
+        "type": "text",
+        "id": "hero_button_text",
+        "label": "Hero Button Text",
+        "default": "Shop Now"
+      }, {
+        "type": "url",
+        "id": "hero_button_link",
+        "label": "Hero Button Link"
+      }, {
+        "type": "textarea",
+        "id": "bottom_bar_desktop_text",
+        "label": "Bottom Bar Text (Desktop/Tablet)",
+        "default": "Free shipping on orders over $50 • 30-day return policy • 24/7 customer support"
+      }, {
+        "type": "textarea",
+        "id": "bottom_bar_mobile_text",
+        "label": "Bottom Bar Text (Mobile)",
+        "default": "Free shipping • 30-day returns • 24/7 support"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Navbar and Hero Banner"
+      }
+    ]
+  }
+{% endschema %}

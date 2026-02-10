@@ -1,0 +1,124 @@
+{
+  "sections": {
+    "featured_collection": {
+      "type": "featured-collection",
+      "disabled": true,
+      "settings": {
+        "collection": "all",
+        "products_to_show": 8,
+        "title": "Featured products",
+        "heading_size": "h2",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "columns_desktop": 4,
+        "enable_desktop_slider": false,
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "solid",
+        "color_scheme": "scheme-1",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 44,
+        "padding_bottom": 36
+      }
+    },
+    "ad_final_sec_nav_hero_pLxBVV": {
+      "type": "AD-Sec1-Nav-Hero",
+      "name": "Navbar and Hero Banner",
+      "settings": {
+        "navbar_bg_color": "#f5f5f5",
+        "logo": "shopify:\/\/shop_images\/Group_1000007777.png",
+        "logo_link": "",
+        "navbar_content": "Find the ideal gift for your loved ones.",
+        "navbar_btn_text": "choose gift",
+        "navbar_button_link": "\/",
+        "desktop_bg_image": "shopify:\/\/shop_images\/Group_1000008197_1.png",
+        "mobile_bg_image": "shopify:\/\/shop_images\/Frame_1.png",
+        "heading": "The Gift Guide",
+        "desktop_description": "Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.",
+        "mobile_description": "Discover Joy: Your Ultimate Holiday Gift Destination.",
+        "hero_button_text": "Shop Now",
+        "hero_button_link": "shopify:\/\/collections",
+        "bottom_bar_desktop_text": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL",
+        "bottom_bar_mobile_text": "SUSTAINABLE, ETHICALLY MADE ACTIVEWEAR"
+      }
+    },
+    "ad_sec3_product_grid_GcRXmC": {
+      "type": "AD-Sec2-Product-Grid",
+      "blocks": {
+        "product_block_G4BcTz": {
+          "type": "product_block",
+          "settings": {
+            "selected_product": "black-leather-bag",
+            "pos_x": 270,
+            "pos_y": 245
+          }
+        },
+        "product_block_ycFNmW": {
+          "type": "product_block",
+          "settings": {
+            "selected_product": "blue-silk-tuxedo",
+            "pos_x": 375,
+            "pos_y": 220
+          }
+        },
+        "product_block_tdbt66": {
+          "type": "product_block",
+          "settings": {
+            "selected_product": "chequered-red-shirt",
+            "pos_x": 270,
+            "pos_y": 80
+          }
+        },
+        "product_block_3L3LjU": {
+          "type": "product_block",
+          "settings": {
+            "selected_product": "classic-leather-jacket",
+            "pos_x": 310,
+            "pos_y": 80
+          }
+        },
+        "product_block_3kD6TP": {
+          "type": "product_block",
+          "settings": {
+            "selected_product": "classic-varsity-top",
+            "pos_x": 220,
+            "pos_y": 100
+          }
+        },
+        "product_block_DpxHhP": {
+          "type": "product_block",
+          "settings": {
+            "selected_product": "dark-denim-top",
+            "pos_x": 330,
+            "pos_y": 180
+          }
+        }
+      },
+      "block_order": [
+        "product_block_G4BcTz",
+        "product_block_ycFNmW",
+        "product_block_tdbt66",
+        "product_block_3L3LjU",
+        "product_block_3kD6TP",
+        "product_block_DpxHhP"
+      ],
+      "name": "Product Mosaic Gallery",
+      "settings": {
+        "heading": "Featured Collection"
+      }
+    }
+  },
+  "order": [
+    "featured_collection",
+    "ad_final_sec_nav_hero_pLxBVV",
+    "ad_sec3_product_grid_GcRXmC"
+  ]
+}
